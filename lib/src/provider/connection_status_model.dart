@@ -10,7 +10,8 @@ class ConnectionStatusModel extends ChangeNotifier {
   bool _isOnline = true;
 
   ConnectionStatusModel() {
-    _connectionSubscription = _connectivity.onConnectivityChanged.listen((_) => _checkInternetConnection());
+    _connectionSubscription = _connectivity.onConnectivityChanged
+        .listen((_) => _checkInternetConnection());
     _checkInternetConnection();
   }
 
@@ -24,12 +25,12 @@ class ConnectionStatusModel extends ChangeNotifier {
       final result = await InternetAddress.lookup('google.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         _isOnline = true;
-        return;
+      } else {
+        _isOnline = false;
       }
-    } on SocketException catch (e) {
-      print(e.message);
+    } on SocketException catch (_) {
+      _isOnline = false;
     }
-    _isOnline = false;
     notifyListeners();
   }
 

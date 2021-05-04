@@ -21,12 +21,12 @@ class ConnectionStatusCubit extends Cubit<ConnectionStatus> {
       final result = await InternetAddress.lookup('google.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         emit(ConnectionStatus.online);
-        return;
+      } else {
+        emit(ConnectionStatus.offline);
       }
-    } on SocketException catch (e) {
-      print(e.message);
+    } on SocketException catch (_) {
+      emit(ConnectionStatus.offline);
     }
-    emit(ConnectionStatus.offline);
   }
 
   @override

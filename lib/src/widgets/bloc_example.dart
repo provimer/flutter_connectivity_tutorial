@@ -14,7 +14,7 @@ class BlocExample extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Provider Example'),
+        title: Text('Flutter Bloc Example'),
       ),
       body: Center(
         child: Column(
